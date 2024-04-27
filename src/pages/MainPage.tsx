@@ -3,13 +3,28 @@ import CustomFilter from "../components/CustomFilter";
 import Hero from "../components/Hero";
 import SearchBar from "../components/SearchBar";
 import Card from "../components/Card";
+import { fuels, years } from "../constants";
+import { useSearchParams } from "react-router-dom";
+import { fetchCars } from "../utils";
+import { CarType } from "../types";
 
 const MainPage = () => {
-  const [cars, serCars] = useState([1]);
+  const [cars, setCars] = useState<CarType[]>([]);
 
+  const [params, setParams] = useSearchParams()
+  
+  
   useEffect(() => {
+    // * parametreden marka ve modeli alacağız. searchbar komponentinde obje olarak gönderdiğimiz 
+    // için konsolda göremedik. burada objeye çevirip öyle görebildik geldiğini.
+    const paramsObj = Object.fromEntries(params.entries())
+
+    // parametredeki aradığımız marka modeli içeren nesneyi apiye yolla
+    fetchCars(paramsObj)
+    .then((res:CarType[])=> setCars(res)) // fetch ile de then kullanabiliyoruz
+    //dönen cevap da dizi şeklinde geliyor.->res:CarType[]
     
-  }, [])
+  }, [params]) // PARAMETRE HER DEĞİŞTİĞİNDE API'YE İSTEK ATMASINI İSTİYORUZ
   
 
   return (
@@ -26,8 +41,8 @@ const MainPage = () => {
         <div className="home__filters">
           <SearchBar />
           <div className="home__filter-container">
-            <CustomFilter title="Yakıt Tipi" />
-            <CustomFilter title="Yıl" />
+            <CustomFilter title="Yakıt Tipi" options={fuels} />
+            <CustomFilter title="Yıl" options={years} />
           </div>
         </div>
 
@@ -39,11 +54,9 @@ const MainPage = () => {
         ) : (
           <section>
             <div className="home__cars-wrapper">
-              <Card />
-              <Card />
-              <Card />
-              <Card />
-              <Card />
+              {cars.map((car, i)=> (
+              <Card key={i} car={car} />
+              ))}
             </div>
           </section>
         )}

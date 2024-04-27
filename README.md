@@ -4,3 +4,6 @@
 - react-select
 - framer-motion
 - tailwind
+
+# Imagin Studio: 
+- https://cdn.imagin.studio/getimage

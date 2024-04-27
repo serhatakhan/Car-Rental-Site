@@ -3,8 +3,14 @@ import CustomButton from "../CustomButton";
 import CarInfo from "./CarInfo";
 import { motion } from 'framer-motion';
 import DetailModel from "./DetailModel";
+import { CarType } from "../../types";
+import { generateImage } from "../../utils";
 
-const Card = () => {
+type CardProps = {
+  car:CarType
+}
+
+const Card = ({car}:CardProps) => {
     // daha fazla yazısına(CustomButton bileşeni) tıklanma state'i
     const [isOpen, setIsOpen] = useState(false)
 
@@ -15,7 +21,7 @@ const Card = () => {
     transition={{duration:0.4}}
     className="group car-card">
       {/* arabanın adı */}
-      <h2 className="car-card__content-title">Bmw 740i</h2>
+      <h2 className="car-card__content-title">{car.make} {car.model}</h2>
 
       {/* aracın fiyatı */}
       <p className="flex mt-6 text-[32px]">
@@ -26,7 +32,7 @@ const Card = () => {
 
       {/* resim alanı */}
       <div className="relative w-full h-40 my-3">
-        <img src="/hero.png" alt="car-pic" className="w-full h-full object-contain" />
+        <img src={generateImage(car)} alt="car-pic" className="w-full h-full object-contain" />
       </div>
 
       {/* alt bilgi kısmı */}
@@ -39,16 +45,16 @@ const Card = () => {
         <div className="car-card__btn-container">
             <CustomButton 
                 title="Daha Fazla" 
-                designs="w-full py-[16px]" 
+                designs="w-full py-[16px] gap-3" 
                 rIcon="/right-arrow.svg" 
                 handleClick={()=> setIsOpen(true)}
-                // bir değer dönürmüyor. tipini tanımlarken void 
+                // bir değer döndürmüyor. tipini tanımlarken void 
             />
         </div>
       </div>
 
 
-      <DetailModel isOpen={isOpen} closeModel={()=> setIsOpen(false)} />
+      <DetailModel isOpen={isOpen} closeModel={()=> setIsOpen(false)} car={car} />
 
     </motion.div>
     // hata almamak için kapanış yagına da motion verdik !
