@@ -30,6 +30,5 @@ This project is a web application aimed at creating a car catalog. It is develop
 
 ## Preview
 
-
-
+![kayt1-ezgif com-video-to-gif-converter](https://github.com/serhatakhan/CarRentalPage/assets/147662915/d7a81cd5-4638-452c-8475-62cab0b46246)
 
