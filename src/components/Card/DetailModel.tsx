@@ -50,8 +50,8 @@ const DetailModel = ({ isOpen, closeModel, car }: DetailProps) => {
             {/* araç detay */}
             {/* gelen car propu bir nesne. bunu DİZİYE çevirmek için Object.entries kullandık. */}
             {/* alırken key,value şeklinde alabilmek için maplerken [key, value] şeklinde yazdık. yani bizim için otomatik bri şekilde parçalıyor. */}
-            {Object.entries(car).map(([key, value])=> (
-              <div className="flex justify-between items-center">
+            {Object.entries(car).map(([key, value], i)=> (
+              <div className="flex justify-between items-center" key={i}>
                   {/* replace("_"," ") --> alt tireyi alıp parçala yerine boş string koy dedik !! */}
                   <h4 className="capitalize font-semibold text-gray-600">{key.replace("_"," ")}</h4>
                   <p className="text-black-100 font-extrabold capitalize">{value}</p>
